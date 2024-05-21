@@ -45,19 +45,20 @@ class Model:
         self.peso = 0
         self.percorsofinale=[]
         nodo =self.idmap[id]
-        self.ricorsione(nodo,[nodo])
+        self.ricorsione([nodo])
         return self.percorsofinale,self.lunghezzaarchi
 
 
 
-    def ricorsione(self,n,parziale):
-        if len(parziale) == lun:
-            if self.lunghezzaarchi<len(parziale):
-                self.lunghezzaarchi=len(parziale)
-                self.percorsofinale = copy.deepcopy((parziale))
-            return
-        for v in self.grafo.neighbors(parziale[-1]):
-            if v not in parziale:
-                parziale.append(v)
-                self.ricorsione(parziale, lun)
-                parziale.pop()
+    def ricorsione(self,parziale):
+        if self.lunghezzaarchi<len(parziale):
+            self.lunghezzaarchi=len(parziale)
+            self.percorsofinale = copy.deepcopy((parziale))
+
+        else:
+            for v in self.grafo.neighbors(parziale[-1]):
+                if v not in parziale and self.peso< self.grafo[parziale[-1]][v]['weight']:
+                    parziale.append(v)
+                    self.ricorsione(parziale)
+                    parziale.pop()
+
